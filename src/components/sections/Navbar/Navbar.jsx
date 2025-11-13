@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import NavbarLogo from './NavbarLogo';
 import NavbarLinks from './NavbarLinks';
 import NavbarBtn from './NavbarBtn';
+import NavbarLogo from './NavbarLogo';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai"; 
 import './Navbar.css'; // <-- Importez le fichier CSS !

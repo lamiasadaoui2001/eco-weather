@@ -4,8 +4,8 @@ import React from 'react';
 
 const links = [
     { name: 'Accueil', href: '#home' },
-    { name: 'Dashboard', href: '#weather' },
-    { name: 'Carte Interactive', href: '#air' },
+    { name: 'Dashboard', href: '#dash' },
+    { name: 'Carte Interactive', href: '#carte' },
     { name: 'Conseils écologiques', href: '#advice' },
 ];
 

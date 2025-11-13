@@ -1,0 +1,187 @@
+/* --- VARIABLES (A adapter selon votre thème : LilasPâle, noire, blanc, etc.) --- */
+:root {
+    --vertEco: #4CAF50;
+    --vertEcoFonce: #1a5e20;
+    --lilasPale: #e0e0f0;
+    --noire: #222;
+    --blanc: #fff;
+    --grisFonce: #333;
+}
+
+
+
+/* --- 1. CONTENEUR GLOBAL DE NAVIGATION --- */
+.nav-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto; /* mx-auto */
+    padding: 0 16px; /* px-4 */
+    position: fixed;
+    top: 8px; /* mt-2 */
+    left: 50%;
+    transform: translateX(-50%); /* -translate-x-[50%] */
+    z-index: 20;
+    display: flex;
+    gap: 16px; /* gap-4 */
+}
+
+/* --- 2. BARRE PRINCIPALE (Logo, Liens, Bouton Desktop) --- */
+.nav-main {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+  padding: 1rem 1.5rem; /* équivalent Tailwind p-6 */
+  border: 2px solid var(--yellowpale); /* bordure jaune */
+  border-radius: 9999px; /* arrondi complet comme rounded-full */
+  background-color: var(--blue); /* fond bleu comme le body */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* léger shadow pour relief */
+}
+
+
+/* --- 3. LIENS DESKTOP (Masqué sur mobile) --- */
+.nav-links-desktop {
+    display: none; /* Cache par défaut */
+}
+
+/* --- 4. BOUTON HAMBURGER (Affiché sur mobile/tablette) --- */
+.menu-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem; /* p-6 */
+    background-color: var(--noire);
+    border-radius: 9999px; /* rounded-full */
+    border: 1.8px solid var(--lilasPale);
+    cursor: pointer;
+}
+
+.menu-toggle-btn {
+    font-size: 1.5rem; /* text-2xl */
+    padding: 0.75rem; /* p-3 */
+    border: 1px solid var(--lilasPale);
+    border-radius: 9999px;
+    color: var(--blanc);
+    background: none;
+    cursor: pointer;
+    line-height: 0;
+}
+
+/* --- 5. MENU MOBILE DÉROULANT --- */
+.nav-menu-mobile {
+    position: absolute;
+    top: 100%; /* Juste en dessous de la nav-main */
+    left: 0;
+    width: 100%;
+    margin-top: 8px; /* mt-2 */
+    background-color: var(--noire);
+    border-top: 1.8px solid var(--lilasPale);
+    padding: 1rem;
+    border-radius: 0 0 8px 8px; /* rounded-b-lg */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    
+    /* Animation et Masquage initial */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.nav-menu-mobile.is-open {
+    max-height: 500px; /* Hauteur suffisante pour afficher le contenu */
+    opacity: 1;
+}
+
+
+/* --- 6. RESPONSIVE (À partir de 1024px, Desktop) --- */
+@media (min-width: 1024px) {
+    /* Cache le bouton mobile sur desktop */
+    .menu-btn-container {
+        display: none;
+    }
+    
+    /* Affiche les liens desktop sur desktop */
+    .nav-links-desktop {
+        display: block;
+    }
+
+    /* Cache le menu mobile sur desktop */
+    .nav-menu-mobile {
+        display: none;
+    }
+}
+
+.nav-logo {
+    font-size: 1.5rem; 
+    font-weight: bold;
+    color: var(--blanc);
+}
+
+.highlight {
+  color: var(--green);
+}
+
+.nav-links-list-desktop {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 32px;
+}
+
+.nav-link-desktop {
+    color: var(--grisFonce);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-link-desktop:hover {
+    color: var(--vertEco);
+}
+
+.nav-links-list-mobile {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 12px;
+}
+
+.nav-link-mobile {
+    color: var(--blanc);
+    text-decoration: none;
+    padding: 10px 0;
+    display: block;
+    text-align: center;
+    border-bottom: 1px solid rgba(224, 224, 240, 0.2);
+    transition: color 0.3s;
+}
+
+.nav-link-mobile:hover {
+    color: var(--vertEco);
+}
+
+
+.nav-button {
+    padding: 8px 16px;
+    background-color: var(--vertEco);
+    color: var(--blanc);
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: none; /* Cache par défaut sur mobile si le menu ne le supporte pas */
+}
+
+@media (min-width: 640px) {
+    .nav-button {
+        display: block;
+    }
+}
+
+.nav-button:hover {
+    background-color: var(--vertEcoFonce);
+}

@@ -1,0 +1,102 @@
+/* ==========================
+   Variables globales
+========================== */
+
+
+/* ==========================
+   Style global
+========================== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--blue);
+  color: var(--text);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* ==========================
+   Conteneur Home
+========================== */
+.home {
+  height: 100vh;                 /* pleine hauteur de l'écran */
+  display: flex;
+  justify-content: center;       /* centre horizontalement */
+  align-items: center;           /* centre verticalement */
+  text-align: center;
+  background-color: var(--blue);
+  color: var(--text);
+  flex-direction: column;        /* titre + description en colonne */
+  padding: 20px;
+}
+
+/* ==========================
+   Contenu Home
+========================== */
+.home-content {
+  max-width: 900px;
+}
+
+/* ==========================
+   Titre animé
+========================== */
+/* Titre animé */
+.home-title {
+  font-family: 'Delius', cursive;
+  font-size: 3rem; 
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--text); /* blanc */
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Texte animé avec span : lueur jaune */
+.home-title span {
+  font-size: inherit;
+  color: var(--text); /* blanc */
+  border-right: 3px solid var(--text); /* curseur clignotant */
+  padding-right: 5px;
+  
+  /* Ombre/lueur jaune */
+  text-shadow: 0 0 10px var(--yellow), 0 0 20px var(--yellow);
+}
+
+
+
+/* ==========================
+   Description
+========================== */
+.home-description {
+  font-family: 'Open Sans', sans-serif; /* ou ta font-special */
+  font-size: 1.125rem;                  /* équivalent text-lg */
+  margin-top: 1rem;
+  line-height: 1.6;
+  color: var(--text);
+  text-align: justify;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Description un peu plus grande sur grands écrans */
+@media screen and (min-width: 1024px) {
+  .home-description {
+    font-size: 1.25rem;
+  }
+}
+
+/* ==========================
+   Responsive flex (si besoin d’une version row)
+========================== */
+@media screen and (min-width: 768px) {
+  .home-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+  }
+}
+
+/*text*/
+.home-content p { font-size: 1rem; }

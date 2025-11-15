@@ -11,23 +11,46 @@
    Conteneur Home
 ========================== */
 .home {
-  height: 100vh;                 /* pleine hauteur de l'écran */
-  display: flex;
-  justify-content: center;       /* centre horizontalement */
-  align-items: center;           /* centre verticalement */
-  text-align: center;
-  background-color: var(--blue);
-  color: var(--text);
-  flex-direction: column;        /* titre + description en colonne */
-  padding: 20px;
+    min-height: 100vh; 
+    position: relative;
+     overflow: hidden;
+    display: flex; /* Utilisé pour aligner le texte */
+    flex-direction: column;  background-color: var(--blue); 
+    color: var(--text);
 }
+
+.home-container {
+       width: 100%;
+  }
+.home-text {
+    /* Le texte doit prendre de la place et être centré */
+    width: 80%; /* Largeur du bloc de texte */
+    max-width: 900px; /* Limiter la largeur sur grands écrans */
+    margin: 15vh auto 0 auto; /* Centrer horizontalement et ajouter de l'espace en haut (15% de la hauteur de la vue) */
+    text-align: center;
+    position: relative; /* Assurez-vous qu'il est au-dessus de la Terre */
+    z-index: 10; 
+    padding: 20px;
+    box-sizing: border-box;
+}
+.home-pic {
+    position: absolute;
+    bottom: -15vh;        /* pousse la Terre vers le bas */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150vw;         /* plus large → moins de remontée visuelle */
+    height: 55vh;   
+    z-index: 5;
+    pointer-events: none;
+}
+
 
 /* ==========================
    Contenu Home
 ========================== */
-.home-content {
+/*.home-content {
   max-width: 900px;
-}
+}*/
 
 /* ==========================
    Titre animé
@@ -65,7 +88,7 @@
   margin-top: 1rem;
   line-height: 1.6;
   color: var(--text);
-  text-align: justify;
+  text-align: center;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;

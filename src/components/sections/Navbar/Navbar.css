@@ -60,6 +60,9 @@
     cursor: pointer;
     line-height: 0;
 }
+.menu-toggle-btn:hover {
+    border-color: var(--vertEcoFonce); /* ou var(--vertEco) si tu as une variable */
+}
 
 /* --- 5. MENU MOBILE DÉROULANT --- */
 .nav-menu-mobile {
@@ -69,7 +72,6 @@
     width: 100%;
     margin-top: 8px; /* mt-2 */
     background-color: var(--blue);
-    border-top: 1.8px solid var(--blue);
     padding: 1rem;
     border-radius: 0 0 8px 8px; /* rounded-b-lg */
     box-shadow: 0 0px 5px var(--green);
@@ -84,6 +86,25 @@
 .nav-menu-mobile.is-open {
     max-height: 500px; /* Hauteur suffisante pour afficher le contenu */
     opacity: 1;
+}
+/* --- OVERLAY FLOU quand le menu mobile est ouvert --- */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(6px); /* flou */
+    background: rgba(0, 0, 0, 0.2); /* léger assombrissement */
+    z-index: 15; /* juste derrière la nav mais au-dessus du contenu */
+    opacity: 0;
+    pointer-events: none; /* ne bloque rien quand invisible */
+    transition: opacity 0.3s ease;
+}
+
+.nav-overlay.is-visible {
+    opacity: 1;
+    pointer-events: auto; /* permet de cliquer pour fermer si besoin */
 }
 
 

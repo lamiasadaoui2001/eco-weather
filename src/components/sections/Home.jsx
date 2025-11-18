@@ -6,7 +6,7 @@ import "./Home.css";
 
 const Home = () => {
   return (
-    <section className="home">
+    <section  id="home" className="home">
       <StarsBackground /> {/* Étoiles en arrière-plan */}
       <div className="home-container">
         <div className="home-text">

@@ -6,7 +6,7 @@ const NavbarBtn = () => {
     return (
         // La classe 'sm:block' est gérée par défaut par le CSS en ne s'affichant pas
         <button className="nav-button"> 
-            Commencer
+            Contactez-nous
         </button>
     );
 }

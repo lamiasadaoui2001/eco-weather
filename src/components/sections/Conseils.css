@@ -1,0 +1,178 @@
+
+/*conseils*/
+.advice {
+    min-height: 100vh; 
+    position: relative;
+     overflow: hidden;
+    /*flex-direction: column; */
+    background-color: var(--blue); 
+    color: var(--text);
+}
+
+.advice-container {
+       width: 100%;
+       margin-top: 150px;
+       display: flex;
+       justify-content: center;
+  }
+
+
+
+/* meteoConseils.css */
+.dynamic-widget {
+    /* Important : Assurez-vous que .weather-widget est bien en display: flex */
+    display: flex; 
+    
+    /* Le reste des styles de .weather-widget... */
+    background-color: #2b2e4a; 
+    color: white;
+    /* ... */
+}
+.weather-widget {
+    position: relative; /* AJOUT À FAIRE */
+    display: flex;
+    background-color: #2b2e4a;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+
+/* --- Section du jour actuel (Lundi) --- */
+/* --- Section du jour actuel (avec vidéo si soleil) --- */
+.weather-today {
+    position: relative;
+    overflow: hidden;
+    padding: 20px 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;       /* Centre horizontalement */
+    justify-content: center;   /* Centre verticalement */
+
+    background-color: #1e202b;
+    border-right: 1px solid #3c4059;
+    z-index: 1;
+    text-align: center;        /* Centre le texte */
+}
+
+
+
+
+.day-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.location-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.main-temp-block {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.main-temp {
+    font-size: 3.5em; /* Grande taille de police pour 23°C */
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.main-icon {
+    /* Styles pour l'icône personnalisée */
+    width: 60px; 
+    height: 60px;
+    color: #4db6ac; /* Couleur turquoise des icônes */
+}
+
+/* Pour l'icône SVG du soleil/demi-lune */
+.icon-sun-half {
+    width: 100%;
+    height: 100%;
+}
+
+.details-row {
+    display: flex;
+    /* La ligne de détails est en bas à gauche sur l'image */
+    margin-top: auto; 
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+    font-size: 0.8em;
+}
+
+.detail-value {
+    font-weight: bold;
+}
+
+/* --- Section des prévisions (Mardi-Dimanche) --- */
+.weather-forecast-day {
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    width: 90px; /* Largeur fixe pour chaque jour */
+    /* La couleur des jours suivants est uniforme */
+    background-color: #2b2e4a; 
+    border-left: 1px solid #3c4059; /* Séparateur */
+}
+
+.weather-forecast-day:first-child {
+    border-left: none; /* Pas de ligne de séparation pour le premier */
+}
+
+.day-name {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.forecast-icon {
+    font-size: 2em; /* Taille des icônes de prévisions */
+    color: #4db6ac;
+    margin-bottom: 15px;
+}
+
+.temp-high {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.temp-low {
+    font-size: 0.8em;
+    opacity: 0.7; /* Température basse plus discrète */
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;      /* Pas plus que la largeur du bloc */
+  height: 100%;     /* Pas plus que la hauteur du bloc */
+
+  object-fit: cover; /* Remplit sans déformer MAIS sans zoom exagéré */
+
+  z-index: 0;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+
+/* Le widget complet quand il fait beau */
+.dynamic-widget.is-sunny .weather-today {
+  background: none !important; /* Supprime fond statique */
+}

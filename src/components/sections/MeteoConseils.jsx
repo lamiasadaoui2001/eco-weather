@@ -1,68 +1,178 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Conseils.css";
-import { WiDaySunny, WiDayCloudy, WiCloud, WiRain } from "react-icons/wi";
+import { WiDaySunny, WiDayCloudy, WiRain, WiSnow, WiThunderstorm } from "react-icons/wi";
 
-// Chemin de la vidéo depuis le dossier public
+// Vidéos
 const SUNNY_VIDEO_URL = "/2569168-hd_1920_1080_24fps.mp4";
+const RAINY_VIDEO_URL = "/151744-801455851_small.mp4";
+const CLOUDY_VIDEO_URL = "/49523-459436933_small.mp4";   // ⭐ nouvelle vidéo nuage
+// ---------------- ICONES -------------------
+const getWeatherIcon = (description) => {
+  const d = description.toLowerCase();
+
+  if (d.includes("orage")) return <WiThunderstorm size={48} />;
+  if (d.includes("neige")) return <WiSnow size={48} />;
+  if (d.includes("pluie")) return <WiRain size={48} />;
+  if (d.includes("ensoleillé")) return <WiDaySunny size={48} />;
+  if (d.includes("nuage")) return <WiDayCloudy size={48} />;
+
+  return <WiDaySunny size={48} />;
+};
 
 const MeteoConseils = () => {
-  // Données statiques de Brest
-  const allWeatherData = [
-    { day: "Lun", icon: <WiDaySunny size={48} />, tempHigh: "15°C", tempLow: "9°", condition: "Sunny", details: { humidity: "80%", wind: "10 km/h", direction: "Est" } },
-    { day: "Mar", icon: <WiDayCloudy size={48} />, tempHigh: "16°C", tempLow: "10°", condition: "Cloudy", details: { humidity: "75%", wind: "8 km/h", direction: "Nord-Ouest" } },
-    { day: "Mer", icon: <WiCloud size={48} />, tempHigh: "14°C", tempLow: "9°", condition: "Cloudy", details: { humidity: "85%", wind: "5 km/h", direction: "Sud" } },
-    { day: "Jeu", icon: <WiRain size={48} />, tempHigh: "12°C", tempLow: "7°", condition: "Rain", details: { humidity: "90%", wind: "12 km/h", direction: "Est" } },
-    { day: "Ven", icon: <WiRain size={48} />, tempHigh: "13°C", tempLow: "8°", condition: "Rain", details: { humidity: "95%", wind: "15 km/h", direction: "Sud-Est" } },
-    { day: "Sam", icon: <WiDayCloudy size={48} />, tempHigh: "15°C", tempLow: "9°", condition: "Cloudy", details: { humidity: "88%", wind: "7 km/h", direction: "Ouest" } },
-    { day: "Dim", icon: <WiRain size={48} />, tempHigh: "12°C", tempLow: "8°", condition: "Rain", details: { humidity: "82%", wind: "9 km/h", direction: "Nord" } },
-  ];
-
+  const [weatherData, setWeatherData] = useState([]);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
-  const selectedDayData = allWeatherData[selectedDayIndex];
+  const [error, setError] = useState(null);
   const videoRef = useRef(null);
 
-  const handleDayClick = (index) => {
-    setSelectedDayIndex(index);
-  };
+  const API_KEY = "2d54716efb869467c2de72a6860fbb89";
+  const LAT = 48.3904;
+  const LON = -4.4869;
 
-  const isSunny = selectedDayData.condition === "Sunny";
-  const widgetClasses = `weather-widget dynamic-widget ${isSunny ? 'is-sunny' : ''}`;
-
-  // Gestion de la lecture de la vidéo
+  // ---------------- RÉCUPÉRATION MÉTÉO -------------------
   useEffect(() => {
-    if (videoRef.current) {
-      if (isSunny) {
-        videoRef.current.play().catch(err => {
-          console.log("Lecture automatique bloquée :", err);
+    const fetchWeather = async () => {
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${LAT}&lon=${LON}&units=metric&lang=fr&appid=${API_KEY}`
+        );
+
+        if (!response.ok) throw new Error(`Erreur HTTP: ${response.status}`);
+        const data = await response.json();
+
+        const dailyMap = {};
+
+        data.list.forEach(item => {
+          const date = new Date(item.dt_txt);
+          const day = date.toLocaleDateString("fr-FR", {
+            weekday: "short",
+            day: "numeric",
+            month: "numeric"
+          });
+
+          if (!dailyMap[day]) {
+            dailyMap[day] = {
+              temps: [],
+              humidite: [],
+              vent: [],
+              direction: [],
+              descriptions: [],
+              rains: []
+            };
+          }
+
+          dailyMap[day].temps.push(item.main.temp);
+          dailyMap[day].humidite.push(item.main.humidity);
+          dailyMap[day].vent.push(item.wind.speed);
+          dailyMap[day].direction.push(item.wind.deg);
+
+          dailyMap[day].descriptions.push(item.weather[0].description);
+
+          dailyMap[day].rains.push(item.rain?.["3h"] || 0);
         });
-      } else {
-        videoRef.current.pause();
-        videoRef.current.currentTime = 0;
+
+        const degToDir = deg => {
+          if (deg >= 337.5 || deg < 22.5) return "N";
+          if (deg < 67.5) return "NE";
+          if (deg < 112.5) return "E";
+          if (deg < 157.5) return "SE";
+          if (deg < 202.5) return "S";
+          if (deg < 247.5) return "SO";
+          if (deg < 292.5) return "O";
+          return "NO";
+        };
+
+        const dailyData = Object.keys(dailyMap).map(day => {
+          const avg = arr => Math.round(arr.reduce((a, b) => a + b, 0) / arr.length);
+
+          const descriptions = dailyMap[day].descriptions;
+          const rains = dailyMap[day].rains;
+
+          const hasRealRain = rains.some(r => r > 0.5);
+
+          // ⭐ Description météo EN FRANÇAIS
+          let finalCondition = "Nuageux";
+
+          if (descriptions.some(d => d.includes("orage"))) finalCondition = "Orage";
+          else if (hasRealRain) finalCondition = "Pluie";
+          else if (descriptions.some(d => d.includes("neige"))) finalCondition = "Neige";
+          else if (descriptions.some(d => d.includes("ciel dégagé"))) finalCondition = "Ensoleillé";
+
+          return {
+            day,
+            tempHigh: Math.round(Math.max(...dailyMap[day].temps)) + "°C",
+            tempLow: Math.round(Math.min(...dailyMap[day].temps)) + "°C",
+            details: {
+              humidity: avg(dailyMap[day].humidite) + "%",
+              wind: avg(dailyMap[day].vent) + " km/h",
+              direction: degToDir(avg(dailyMap[day].direction))
+            },
+            description: finalCondition,
+            icon: getWeatherIcon(finalCondition)
+          };
+        });
+
+        setWeatherData(dailyData);
+
+      } catch (err) {
+        setError(err.message);
       }
+    };
+
+    fetchWeather();
+  }, [LON]);
+
+  // ---------------- VIDEO DYNAMIQUE -------------------
+  useEffect(() => {
+    if (!weatherData.length) return;
+
+    const desc = weatherData[selectedDayIndex].description.toLowerCase();
+
+    const isRainy = desc.includes("pluie");
+    const isSunny = desc.includes("ensoleillé");
+    const isCloudy = desc.includes("nuage");
+
+  if (videoRef.current) {
+    if (isRainy) {
+      videoRef.current.src = RAINY_VIDEO_URL;
+    } else if (isSunny) {
+      videoRef.current.src = SUNNY_VIDEO_URL;
+    } else if (isCloudy) {
+      videoRef.current.src = CLOUDY_VIDEO_URL;
+    } else {
+      videoRef.current.pause();
+      videoRef.current.src = "";
+      return;
     }
-  }, [isSunny]);
+
+    videoRef.current.load();
+    videoRef.current.play().catch(() => {});
+  }
+}, [weatherData, selectedDayIndex]);
+
+  if (error) return <div>Erreur météo: {error}</div>;
+  if (!weatherData.length) return <div>Chargement...</div>;
+
+  const selectedDayData = weatherData[selectedDayIndex];
 
   return (
     <section className="weather-widget-wrapper">
-      <div className={widgetClasses}>
+      <div className="weather-widget dynamic-widget">
 
-        {/* Vidéo en arrière-plan */}
-        {isSunny && (
-          <video
-            ref={videoRef}
-            className="background-video"
-            src={SUNNY_VIDEO_URL}
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            Votre navigateur ne supporte pas la vidéo.
-          </video>
-        )}
-
-        {/* Section du jour sélectionné */}
         <div className="weather-today">
+
+{["Pluie", "Ensoleillé", "Nuageux"].includes(selectedDayData.description) ? (
+  <video
+    ref={videoRef}
+    className="background-video"
+    autoPlay
+    loop
+    muted
+    playsInline
+  />
+) : null}
+
+
           <div className="day-header">
             <span className="day-name">{selectedDayData.day}</span>
           </div>
@@ -71,12 +181,10 @@ const MeteoConseils = () => {
 
           <div className="main-temp-block">
             <span className="main-temp">{selectedDayData.tempHigh}</span>
-            <div className="main-icon">
-              <span style={{ fontSize: '3.5em', color: isSunny ? 'gold' : '#4db6ac', zIndex: 2 }}>
-                {selectedDayData.icon}
-              </span>
-            </div>
+            <div className="main-icon">{selectedDayData.icon}</div>
           </div>
+
+          <div className="main-desc">{selectedDayData.description}</div>
 
           <div className="details-row">
             <div className="detail">
@@ -94,25 +202,21 @@ const MeteoConseils = () => {
           </div>
         </div>
 
-        {/* Prévisions cliquables */}
-        {allWeatherData.map((dayData, index) => {
-          if (index === selectedDayIndex) return null;
-          const forecastDayClass = `weather-forecast-day clickable ${index === selectedDayIndex ? 'is-active' : ''}`;
-          return (
+        {weatherData.map((dayData, i) =>
+          i === selectedDayIndex ? null : (
             <div
-              className={forecastDayClass}
-              key={index}
-              onClick={() => handleDayClick(index)}
-              style={{ zIndex: 2 }}
+              key={i}
+              className="weather-forecast-day clickable"
+              onClick={() => setSelectedDayIndex(i)}
             >
               <div className="day-name">{dayData.day}</div>
               <div className="forecast-icon">{dayData.icon}</div>
+              <div className="forecast-desc">{dayData.description}</div>
               <div className="temp-high">{dayData.tempHigh}</div>
               <div className="temp-low">{dayData.tempLow}</div>
             </div>
-          );
-        })}
-
+          )
+        )}
       </div>
     </section>
   );

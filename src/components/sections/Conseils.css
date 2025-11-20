@@ -18,7 +18,7 @@
 
 
 
-/* meteoConseils.css */
+/* /////////////////////meteoConseils.css////////////////////////////////// */
 .dynamic-widget {
     /* Important : Assurez-vous que .weather-widget est bien en display: flex */
     display: flex; 
@@ -53,8 +53,10 @@
 
     background-color: #1e202b;
     border-right: 1px solid #3c4059;
-    z-index: 1;
+    z-index: 2;
     text-align: center;        /* Centre le texte */
+
+    
 }
 
 
@@ -167,7 +169,7 @@
   object-fit: cover; /* Remplit sans déformer MAIS sans zoom exagéré */
 
   z-index: 0;
-  opacity: 0.55;
+  opacity: 0.70;
   pointer-events: none;
 }
 
@@ -176,3 +178,128 @@
 .dynamic-widget.is-sunny .weather-today {
   background: none !important; /* Supprime fond statique */
 }
+
+
+
+.weather-today .day-header,
+.weather-today .location-name,
+.weather-today .main-temp,
+.weather-today .detail-value,
+.weather-today .detail-label,
+.weather-today .main-desc,
+.weather-today .detail {
+    position: relative; /* essentiel pour z-index */
+    z-index: 2; 
+    color: var(--text) ;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.weather-today .main-icon {
+    color: #4db6ac !important; /* couleur turquoise */
+    z-index: 2;
+    position: relative;
+    filter: drop-shadow(1px 1px 5px var(--text)); /* ombre turquoise */
+}
+
+/* --- Responsive : tablettes et mobiles --- */
+/* Responsive : tablette et mobile */
+/* Taille spéciale pour écrans autour de 1024px */
+@media (max-width: 1024px)  {
+
+  .weather-widget {
+    width: 80% !important;      /* rétréci mais reste en mode desktop */
+    max-width: 1100px;
+    margin: 0 auto !important;  /* centré */
+    transform: scale(0.95);     /* léger zoom-out */
+    transform-origin: top center;
+  }
+}
+
+/* Responsive : tablette et mobile */
+@media (max-width: 640px) {
+
+    .dynamic-widget {
+    flex-direction: column !important;
+    width: 100% !important;
+    min-height: 100vh !important;  /* important */
+    justify-content: center !important; /* centre verticalement */
+    align-items: center !important;     /* centre horizontalement */
+  }
+  /* Le widget passe en colonne */
+  .weather-widget {
+    flex-direction: column !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    border-radius: 15px !important; /* gardé */
+    overflow: hidden !important;
+
+    min-height: 95vh !important;  /* remplissage */
+  }
+
+  /* Bloc du jour actuel */
+  .weather-today {
+    width: 100% !important;
+    padding: 35px 20px !important;
+    min-height: 300px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .main-temp {
+    font-size: 3rem !important;
+  }
+
+  .main-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  /* Prévisions sous forme verticale */
+  .weather-forecast-day {
+    width: 100% !important;
+
+    padding: 30px 0 !important;
+    min-height: 150px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border-left: none !important;
+    border-top: 1px solid #3c4059 !important; /* la bordure reste */
+    text-align: center !important;
+  }
+/* SUPPRIME LE COMPORTEMENT SPACE-BETWEEN */
+  .weather-today .day-header {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    text-align: center !important;
+    margin-bottom: 15px !important;
+  }
+  /* FIX #2 : empêcher le décalage créé par margin-top:auto */
+  .weather-today .details-row {
+    margin-top: 20px !important;
+    justify-content: center !important;
+    width: 100%;
+    text-align: center !important;
+  }
+
+  /* FIX #3 : tout centrer vraiment */
+  .weather-today {
+    flex: 1 1 auto; /* occupe l'espace disponible */
+}
+
+}
+
+
+
+
+
+/* /////////////////////cardsConseils.css////////////////////////////////// */
+

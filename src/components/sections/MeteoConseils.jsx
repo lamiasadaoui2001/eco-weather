@@ -72,14 +72,14 @@ const MeteoConseils = () => {
         });
 
         const degToDir = deg => {
-          if (deg >= 337.5 || deg < 22.5) return "N";
-          if (deg < 67.5) return "NE";
-          if (deg < 112.5) return "E";
-          if (deg < 157.5) return "SE";
-          if (deg < 202.5) return "S";
-          if (deg < 247.5) return "SO";
-          if (deg < 292.5) return "O";
-          return "NO";
+          if (deg >= 337.5 || deg < 22.5) return "Nord";
+  if (deg < 67.5) return "Nord-Est";
+  if (deg < 112.5) return "Est";
+  if (deg < 157.5) return "Sud-Est";
+  if (deg < 202.5) return "Sud";
+  if (deg < 247.5) return "Sud-Ouest";
+  if (deg < 292.5) return "Ouest";
+  return "Nord-Ouest";
         };
 
         const dailyData = Object.keys(dailyMap).map(day => {

@@ -1,6 +1,5 @@
-// src/components/sections/Navbar/NavbarLinks.jsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const links = [
@@ -13,15 +12,21 @@ const NavbarLinks = ({ isMobile = false }) => {
   const listClass = isMobile
     ? "nav-links-list-mobile"
     : "nav-links-list-desktop";
+
   const linkClass = isMobile ? "nav-link-mobile" : "nav-link-desktop";
 
   return (
     <ul className={listClass}>
       {links.map((link) => (
         <li key={link.name}>
-          <Link to={link.href} className={linkClass}>
+          <NavLink
+            to={link.href}
+            className={({ isActive }) =>
+              isActive ? `${linkClass} active` : linkClass
+            }
+          >
             {link.name}
-          </Link>
+          </NavLink>
         </li>
       ))}
     </ul>

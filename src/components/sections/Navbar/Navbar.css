@@ -190,6 +190,40 @@
   color: var(--vertEco, #4CAF50);
 }
 
+/* MODE DESKTOP : lien actif */
+.nav-link-desktop.active {
+  color: var(--vertEco);
+}
+
+.nav-link-desktop.active::after {
+  width: 100%;
+  background-color: var(--vertEco);
+}
+
+/* MODE MOBILE : lien actif */
+.nav-link-mobile.active {
+  color: var(--vertEco);
+  font-weight: bold;
+  border-bottom: 2px solid var(--vertEco);
+}
+
+/* MODE DESKTOP : lien actif */
+.nav-link-desktop.active {
+  color: var(--vertEco);
+}
+
+.nav-link-desktop.active::after {
+  width: 100%;
+  background-color: var(--vertEco);
+}
+
+/* MODE MOBILE : lien actif */
+.nav-link-mobile.active {
+  color: var(--vertEco);
+  font-weight: bold;
+  border-bottom: 2px solid var(--vertEco);
+}
+
 /*****mobilelinks************/
 .nav-links-list-mobile {
     display: flex;

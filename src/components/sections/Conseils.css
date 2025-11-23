@@ -36,6 +36,7 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    
 }
 
 
@@ -303,3 +304,129 @@
 
 /* /////////////////////cardsConseils.css////////////////////////////////// */
 
+.conseils-section {
+    width: 50%;          
+    margin-left: 20px; /* Remplace margin-left: 0; et définit un petit décalage du bord gauche */
+    margin-right: auto; /* Empêche le centrage et pousse le bloc vers la gauche */
+  
+  }
+
+.conseils-section h2 {
+    margin-bottom: 20px;
+    text-align: left;
+    font-family: 'Delius', sans-serif;
+    font-size: 1.7rem;
+    color: var(--vertEco); 
+    padding-left: 10px;
+
+    /* NOUVELLE OMBRE DU TEXTE LUMINEUSE */
+    text-shadow: 
+        /* 1. Lueur principale, focalisée (plus de flou) */
+        0 0 10px var(--vertEco),
+        
+        /* 2. Lueur secondaire, plus large (effet de halo) */
+        0 0 20px var(--vertEco),
+        
+        /* 3. Ombre foncée pour le contraste (peut être supprimée si le contraste est suffisant) */
+        2px 2px 6px rgba(0, 0, 0, 0.5); 
+}
+
+.conseils-list {
+  display: flex;
+  flex-direction: column;  /* affiche les cards verticalement */
+  gap: 20px;               /* espace entre les cards */
+  align-items: flex-start; /* alignement à gauche */
+ 
+
+}
+
+.conseil-card {
+  background-color: #2b2e4a;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: fit-content;
+
+  opacity: 0;
+  transform: translateX(0); /* initialisation, sera remplacée par JS */
+  transition: transform 5s ease-out, opacity 5s ease-out;
+
+}
+
+/* CONTENU DES CARTES */
+.conseil-card h3 {
+    margin-bottom: 10px;
+    font-weight: bold;
+
+     font-family: 'Delius', sans-serif;
+    font-size: 1.3rem;
+    color: var(--text); 
+    border-left: 2px solid #4db6ac;
+    padding-left: 10px;
+
+    /* NOUVELLE OMBRE DU TEXTE LUMINEUSE */
+    text-shadow: 
+        /* 1. Lueur principale, focalisée (plus de flou) */
+        0 0 10px #4db6ac,
+        
+        /* 2. Lueur secondaire, plus large (effet de halo) */
+        0 0 20px #4db6ac,
+        
+        /* 3. Ombre foncée pour le contraste (peut être supprimée si le contraste est suffisant) */
+        2px 2px 6px rgba(0, 0, 0, 0.5); 
+}
+
+.conseil-card ul {
+    /* CORRECTION CLÉ : Suppression de toutes les puces standard */
+    list-style: none; 
+    padding-left: 0;
+}
+
+.conseil-card li {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 5px;
+    position: relative;
+    /* Retrait de l'indentation si nous n'avons plus de puce customisée */
+    padding-left: 0; 
+    padding-left: 25px; /* Espace pour accueillir la nouvelle ligne */
+    color: #ddd; /* Gris clair pour le texte principal */
+    padding-bottom: 5px;
+}
+
+/* SUPPRESSION DE LA PUCE CUSTOMISÉE (::before) */
+.conseil-card li::before {
+    content: "";
+    position: absolute;
+    top: 50%; /* Centre verticalement la ligne */
+    left: 0; /* Place la ligne à l'extrême gauche de l'espace padding-left */
+    transform: translateY(-50%); /* Ajustement précis du centrage vertical */
+    
+    /* DIMENSIONS ET STYLE DE LA LIGNE */
+    width: 15px; /* Longueur de la ligne (ajustez si besoin) */
+    height: 2px; /* Épaisseur très fine */
+    
+    background-color: #4db6ac; /* La couleur verte néon */
+    
+    /* Lueur sur la petite ligne */
+    box-shadow: 0 0 5px #4db6ac; 
+}
+/* Animation initiale (hors écran) */
+/* Animation initiale (hors écran) */
+/* Cartes venant de gauche */
+.slide-left {
+  transform: translateX(-350px);
+  opacity: 0;
+}
+
+/* Cartes venant de droite */
+.slide-right {
+  transform: translateX(350px);
+  opacity: 0;
+}
+
+/* Quand visible */
+.slide-in {
+  transform: translateX(0);
+  opacity: 1;
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import MeteoConseils from "./MeteoConseils";
 import StarsBackground from "./StarsBackground";
+import ListeConseils from "./ListesConseils";
 
 const Conseils = () => {
   return (
@@ -9,7 +10,11 @@ const Conseils = () => {
         <div className="advice-container">
         
           <MeteoConseils /> 
-
+          
+      </div>
+      <div className="advice-card">
+        
+          <ListeConseils/>
       </div>
      </section>
    );

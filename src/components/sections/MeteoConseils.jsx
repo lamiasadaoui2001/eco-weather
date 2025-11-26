@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Conseils.css";
 import { WiDaySunny, WiDayCloudy, WiRain, WiSnow, WiThunderstorm } from "react-icons/wi";
-import { Generateconseils } from "./Conseils/Generateconseils";
+import  Generateconseils from "./Conseils/Generateconseils";
 import ListesConseils from "./ListesConseils"; // Ajuste le chemin
 
 // Vidéos

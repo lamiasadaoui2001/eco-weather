@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./Conseils.css";
 
+import EarthSimple from "./EarthSimple";
 // Fonction pour déterminer la citation en fonction de la météo
 const getDailyQuote = (condition) => {
   switch (condition) {
@@ -78,11 +79,9 @@ const Inspirations = ({ meteo }) => {
 
         {/* Droite : Carte de Brest */}
         <div className="inspirations-right slide-right" ref={rightRef} style={{ animationDelay: "0.7s" }}>
-          <img
-            src="/images/brest-geometrie.png"
-            alt="Carte géométrique de Brest"
-            className="brest-map"
-          />
+        <div className="earth-wrapper">
+                <EarthSimple />
+              </div>
         </div>
       </div>
     </section>

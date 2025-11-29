@@ -1,9 +1,9 @@
 /* --- VARIABLES (A adapter selon votre thème : LilasPâle, noire, blanc, etc.) --- */
 
 
-
-/* --- 1. CONTENEUR GLOBAL DE NAVIGATION --- */
 .nav-container {
+      position: fixed;
+
     width: 100%;
     max-width: 1300px;
     margin: 0 auto; /* mx-auto */
@@ -217,13 +217,18 @@
   background-color: var(--vertEco);
 }
 
-/* MODE MOBILE : lien actif */
+
 .nav-link-mobile.active {
-  color: var(--vertEco);
-  font-weight: bold;
-  border-bottom: 2px solid var(--vertEco);
+color: var(--vertEco);
+ font-weight: bold;
+border-bottom: none !important; /* Désactive l'ancienne bordure */
 }
 
+/* NOUVEAU BLOC : Maintient la ligne étendue quand le lien est actif */
+.nav-link-mobile.active::after {
+    width: 100%; /* Reste étendu sur 100% de la largeur du lien */
+    background-color: var(--vertEcoFonce); /* Vous pouvez utiliser une couleur plus foncée si vous préférez */
+}
 /*****mobilelinks************/
 .nav-links-list-mobile {
     display: flex;

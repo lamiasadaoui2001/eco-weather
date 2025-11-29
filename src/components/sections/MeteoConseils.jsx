@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Conseils.css";
 import { WiDaySunny, WiDayCloudy, WiRain, WiSnow, WiThunderstorm } from "react-icons/wi";
-import  Generateconseils from "./Conseils/Generateconseils";
+import Generateconseils from "./Conseils/Generateconseils";
 import ListesConseils from "./ListesConseils"; // Ajuste le chemin
 
 // Vidéos
@@ -32,7 +32,7 @@ const aqiToText = (aqi) => {
   }
 };
 
-const MeteoConseils = () => {
+const MeteoConseils = ({ setMeteoActuelle }) => {
   const [weatherData, setWeatherData] = useState([]);
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
   const [aqi, setAqi] = useState(null);
@@ -95,7 +95,11 @@ const MeteoConseils = () => {
             day,
             tempHigh: Math.round(Math.max(...dailyMap[day].temps)) + "°C",
             tempLow: Math.round(Math.min(...dailyMap[day].temps)) + "°C",
-            details: { humidity: avg(dailyMap[day].humidite) + "%", wind: avg(dailyMap[day].vent) + " km/h", direction: degToDir(avg(dailyMap[day].direction)) },
+            details: { 
+              humidity: avg(dailyMap[day].humidite) + "%", 
+              wind: avg(dailyMap[day].vent) + " km/h", 
+              direction: degToDir(avg(dailyMap[day].direction)) 
+            },
             description: finalCondition,
             icon: getWeatherIcon(finalCondition)
           };
@@ -118,11 +122,26 @@ const MeteoConseils = () => {
     fetchWeather();
   }, [LON]);
 
+  // Sélection du jour actuel
+  const selectedDayData = weatherData[selectedDayIndex];
+
+  // 🔹 Mettre à jour la météo actuelle pour un autre composant
+  useEffect(() => {
+    if (setMeteoActuelle && selectedDayData) {
+      setMeteoActuelle({
+        condition: selectedDayData.description,
+        temperature: selectedDayData.tempHigh,
+        humidity: selectedDayData.details.humidity,
+        wind: selectedDayData.details.wind,
+        aqi
+      });
+    }
+  }, [selectedDayData, aqi, setMeteoActuelle]);
+
   // VIDEO DYNAMIQUE
   useEffect(() => {
-    if (!weatherData.length) return;
-    const desc = weatherData[selectedDayIndex].description.toLowerCase();
-    if (!videoRef.current) return;
+    if (!selectedDayData || !videoRef.current) return;
+    const desc = selectedDayData.description.toLowerCase();
 
     if (desc.includes("pluie")) videoRef.current.src = RAINY_VIDEO_URL;
     else if (desc.includes("ensoleillé")) videoRef.current.src = SUNNY_VIDEO_URL;
@@ -131,19 +150,18 @@ const MeteoConseils = () => {
 
     videoRef.current.load();
     videoRef.current.play().catch(() => {});
-  }, [weatherData, selectedDayIndex]);
+  }, [selectedDayData]);
 
+  // Retours conditionnels
   if (error) return <div>Erreur météo: {error}</div>;
   if (!weatherData.length) return <div>Chargement...</div>;
-
-  const selectedDayData = weatherData[selectedDayIndex];
 
   const conseilsDuJour = Generateconseils({
     condition: selectedDayData.description,
     temperature: parseInt(selectedDayData.tempHigh),
     humidity: parseInt(selectedDayData.details.humidity),
     wind: parseInt(selectedDayData.details.wind),
-    aqi // texte AQI
+    aqi
   });
 
   return (

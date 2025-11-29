@@ -305,8 +305,8 @@
 /* /////////////////////cardsConseils.css////////////////////////////////// */
 
 .conseils-section {
-    width: 50%;          
-    margin-left: 20px; /* Remplace margin-left: 0; et définit un petit décalage du bord gauche */
+    width: 80%;          
+    margin-left: auto; /* Remplace margin-left: 0; et définit un petit décalage du bord gauche */
     margin-right: auto; /* Empêche le centrage et pousse le bloc vers la gauche */
   
   }
@@ -345,7 +345,7 @@
   padding: 15px 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  width: fit-content;
+  width: 100%;
 
   opacity: 0;
   transform: translateX(0); /* initialisation, sera remplacée par JS */
@@ -510,4 +510,128 @@
   border: 1px solid #4CAF50; /* ta couleur exacte conservée */
   animation: blinkGreen 3.5s infinite;
   transition: 0.3s ease;
+}
+
+.earth-wrapper {
+  padding-top: 120px;  /* hauteur du navbar */
+  margin-bottom: -60px; /* rapproche encore plus la météo */
+  display: flex;
+  justify-content: center;
+}
+
+/*insperations*/
+.inspirations-section {
+  padding: 2rem;
+  width: 100%;
+}
+
+.inspirations-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.inspirations-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.citation-card, .chanson-card {
+  background: var(--vertEco);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* CONTENU DES CARTES */
+.citation-card h3 {
+    margin-bottom: 10px;
+    font-weight: bold;
+
+     font-family: 'Delius', sans-serif;
+    font-size: 1.6rem;
+    color: var(--text); 
+    border-left: 5px solid var(--vertEcoFonce);
+    padding-left: 10px;
+
+    /* NOUVELLE OMBRE DU TEXTE LUMINEUSE */
+    text-shadow: 
+        /* 1. Lueur principale, focalisée (plus de flou) */
+        0 0 10px var(--vertEcoFonce),
+        
+        /* 2. Lueur secondaire, plus large (effet de halo) */
+        0 0 20px var(--vertEcoFonce),
+        
+        /* 3. Ombre foncée pour le contraste (peut être supprimée si le contraste est suffisant) */
+        2px 2px 6px rgba(0, 0, 0, 0.5); 
+}
+
+.chanson-card h3 {
+    margin-bottom: 10px;
+    font-weight: bold;
+
+     font-family: 'Delius', sans-serif;
+    font-size: 1.6rem;
+    color: var(--text); 
+    border-left: 5px solid var(--vertEcoFonce);
+    padding-left: 10px;
+
+    /* NOUVELLE OMBRE DU TEXTE LUMINEUSE */
+    text-shadow: 
+        /* 1. Lueur principale, focalisée (plus de flou) */
+        0 0 10px var(--vertEcoFonce),
+        
+        /* 2. Lueur secondaire, plus large (effet de halo) */
+        0 0 20px var(--vertEcoFonce),
+        
+        /* 3. Ombre foncée pour le contraste (peut être supprimée si le contraste est suffisant) */
+        2px 2px 6px rgba(0, 0, 0, 0.5); 
+}
+
+.inspirations-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brest-map {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Animation d'apparition depuis la gauche */
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px); /* Commence à gauche */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0); /* Arrive à sa position normale */
+  }
+}
+
+/* Animation initiale : cartes gauche */
+.slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Animation initiale : carte droite */
+.slide-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Quand l'élément devient visible */
+.slide-in {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
 }

@@ -38,6 +38,10 @@ const MeteoConseils = ({ setMeteoActuelle }) => {
   const [aqi, setAqi] = useState(null);
   const [error, setError] = useState(null);
   const videoRef = useRef(null);
+  const rainAudioRef = useRef(null);
+  const sunnyAudioRef = useRef(null); // 🔹 Son pour temps ensoleillé
+  const windAudioRef = useRef(null);
+
 
   const API_KEY = "2d54716efb869467c2de72a6860fbb89";
   const LAT = 48.3904;
@@ -138,23 +142,67 @@ const MeteoConseils = ({ setMeteoActuelle }) => {
     }
   }, [selectedDayData, aqi, setMeteoActuelle]);
 
-  // VIDEO DYNAMIQUE
+  // 🎬 VIDEO + 🔊 SON DE PLUIE
   useEffect(() => {
-    if (!selectedDayData || !videoRef.current) return;
+    if (!selectedDayData) return;
+
     const desc = selectedDayData.description.toLowerCase();
 
-    if (desc.includes("pluie")) videoRef.current.src = RAINY_VIDEO_URL;
-    else if (desc.includes("ensoleillé")) videoRef.current.src = SUNNY_VIDEO_URL;
-    else if (desc.includes("nuage")) videoRef.current.src = CLOUDY_VIDEO_URL;
-    else videoRef.current.src = "";
+    // Vidéo
+    if (videoRef.current) {
+      if (desc.includes("pluie")) videoRef.current.src = RAINY_VIDEO_URL;
+      else if (desc.includes("ensoleillé")) videoRef.current.src = SUNNY_VIDEO_URL;
+      else if (desc.includes("nuage")) videoRef.current.src = CLOUDY_VIDEO_URL;
+      else videoRef.current.src = "";
 
-    videoRef.current.load();
-    videoRef.current.play().catch(() => {});
+      videoRef.current.load();
+      videoRef.current.play().catch(() => {});
+    }
+
+        // Son pluie
+    if (rainAudioRef.current) {
+      if (desc.includes("pluie")) {
+        rainAudioRef.current.volume = 0.4;
+        rainAudioRef.current.play().catch(() => {});
+      } else {
+        rainAudioRef.current.pause();
+        rainAudioRef.current.currentTime = 0;
+      }
+    }
+
+    if (windAudioRef.current) {
+  if (desc.includes("nuage")) {
+    windAudioRef.current.volume = 0.4;
+    windAudioRef.current.play().catch(() => {});
+  } else {
+    windAudioRef.current.pause();
+    windAudioRef.current.currentTime = 0;
+  }
+}
+
+    // Son ensoleillé
+    if (sunnyAudioRef.current) {
+      if (desc.includes("ensoleillé")) {
+        sunnyAudioRef.current.volume = 0.4;
+        sunnyAudioRef.current.play().catch(() => {});
+      } else {
+        sunnyAudioRef.current.pause();
+        sunnyAudioRef.current.currentTime = 0;
+      }
+    }
   }, [selectedDayData]);
 
   // Retours conditionnels
   if (error) return <div>Erreur météo: {error}</div>;
-  if (!weatherData.length) return <div>Chargement...</div>;
+  if (!weatherData.length) {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+        {Array.from({ length: 20 }).map((_, i) => (
+          <div key={i}>Chargement...</div>
+        ))}
+      </div>
+    );
+  }
 
   const conseilsDuJour = Generateconseils({
     condition: selectedDayData.description,
@@ -171,6 +219,18 @@ const MeteoConseils = ({ setMeteoActuelle }) => {
           {["Pluie", "Ensoleillé", "Nuageux"].includes(selectedDayData.description) && (
             <video ref={videoRef} className="background-video" autoPlay loop muted playsInline />
           )}
+
+          {selectedDayData.description === "Pluie" && (
+            <audio ref={rainAudioRef} src="/rain.mp3" loop />
+          )}
+
+           {selectedDayData.description === "Ensoleillé" && (
+            <audio ref={sunnyAudioRef} src="/sun.mp3" loop />
+          )}
+          {selectedDayData.description === "Nuageux" && (
+            <audio ref={windAudioRef} src="/wind.mp3" loop />
+          )}
+
 
           <div className="day-header">
             <span className="day-name">{selectedDayData.day}</span>

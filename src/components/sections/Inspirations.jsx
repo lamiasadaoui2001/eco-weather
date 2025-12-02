@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "./Conseils.css";
 
 import EarthSimple from "./EarthSimple";
+
 // Fonction pour déterminer la citation en fonction de la météo
 const getDailyQuote = (condition) => {
   switch (condition) {
@@ -20,15 +21,24 @@ const getDailyQuote = (condition) => {
   }
 };
 
-// Fonction pour suggérer une chanson selon la météo
+// Fonction pour suggérer une chanson selon la météo + lien YouTube
 const getDailySong = (condition) => {
   switch (condition) {
     case "Pluie":
-      return "Suggest: 'Here Comes the Rain Again' (Eurythmics) – Pour se détendre au son des gouttes.";
+      return {
+        text: "‘Here Comes the Rain Again’ – Eurythmics – Pour se détendre au son des gouttes.",
+        url: "https://www.youtube.com/watch?v=TzFnYcIqj6I",
+      };
     case "Ensoleillé":
-      return "Suggest: 'Walking on Sunshine' (Katrina & The Waves) – Parfait pour une journée lumineuse !";
+      return {
+        text: "‘Walking on Sunshine’ – Katrina & The Waves – Parfait pour une journée lumineuse !",
+        url: "https://www.youtube.com/watch?v=iPUmE-tne5U",
+      };
     default:
-      return "Suggest: 'Three Little Birds' (Bob Marley) – Un peu de positive attitude, quelle que soit la météo.";
+      return {
+        text: "‘Three Little Birds’ – Bob Marley  – Un peu de positive attitude, quelle que soit la météo.",
+        url: "https://www.youtube.com/watch?v=LanCLS_hIoY",
+      };
   }
 };
 
@@ -66,22 +76,42 @@ const Inspirations = ({ meteo }) => {
       <div className="inspirations-container">
         {/* Gauche : Citation & Chanson */}
         <div className="inspirations-left" ref={leftRef}>
-          <div className="citation-card slide-left" style={{ animationDelay: "0.2s" }}>
+          <div
+            className="citation-card slide-left"
+            style={{ animationDelay: "0.2s" }}
+          >
             <h3>Citation du jour</h3>
             <p>{dailyQuote}</p>
           </div>
 
-          <div className="chanson-card slide-left" style={{ animationDelay: "0.5s" }}>
+          <div
+            className="chanson-card slide-left"
+            style={{ animationDelay: "0.5s" }}
+          >
             <h3>Chanson du jour</h3>
-            <p>{dailySong}</p>
+            <p>{dailySong.text}</p>
+
+            {/* Bouton YouTube */}
+            <a
+              href={dailySong.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="youtube-button"
+            >
+              🎧 Écouter sur YouTube
+            </a>
           </div>
         </div>
 
         {/* Droite : Carte de Brest */}
-        <div className="inspirations-right slide-right" ref={rightRef} style={{ animationDelay: "0.7s" }}>
-        <div className="earth-wrapper">
-                <EarthSimple />
-              </div>
+        <div
+          className="inspirations-right slide-right"
+          ref={rightRef}
+          style={{ animationDelay: "0.7s" }}
+        >
+          <div className="earth-wrapper">
+            <EarthSimple />
+          </div>
         </div>
       </div>
     </section>

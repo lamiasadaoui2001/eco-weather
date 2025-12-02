@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/sections/Navbar/Navbar";
 import Home from "./components/sections/Home";
 import Conseils from "./components/sections/Conseils";
+import Contact from "./components/sections/Contact"; // 👈 AJOUT
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/advice" element={<Conseils />} />
           <Route path="/dash" element={<div>Dashboard</div>} />
+
+          {/* 👇 TA NOUVELLE ROUTE */}
+          <Route path="/contact" element={<Contact/>} />
         </Routes>
       </main>
     </Router>

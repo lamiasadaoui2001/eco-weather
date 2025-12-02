@@ -716,3 +716,43 @@
         min-height: 150px !important; /* S'assurer qu'il y a une hauteur minimale visible */
     }
 }
+
+.youtube-button {
+  display: inline-block;
+  margin-top: 12px;
+
+  padding: 10px 0;
+
+
+  /* Style du texte */
+  color: #00ffec;
+  font-weight: 700; /* Gras */
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  font-family: 'Delius', sans-serif;
+  text-decoration: none;
+
+  /* Look propre */
+  transition: 0.2s ease;
+
+   text-shadow: 
+        /* 1. Lueur principale, focalisée (plus de flou) */
+        0 0 10px var(--bluef),
+        
+        /* 2. Lueur secondaire, plus large (effet de halo) */
+        0 0 20px var(--bluef),
+        
+        /* 3. Ombre foncée pour le contraste (peut être supprimée si le contraste est suffisant) */
+        2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Hover juste pour un léger effet, sans changer la couleur */
+.youtube-button:hover {
+  transform: translateY(-2px);
+}
+
+/* Shadow au clic */
+.youtube-button:active {
+  text-shadow: 0 0 8px #00ffec, 0 0 12px #00ffec;
+  transform: scale(0.97);
+}

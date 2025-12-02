@@ -398,7 +398,7 @@
 @media (max-width: 1024px) {
 
   .conseils-section {
-    width: 80% !important;
+    width: 90% !important;
     margin: 0 auto !important;
   }
 
@@ -416,7 +416,7 @@
 @media (max-width: 640px) {
 
   .conseils-section {
-    width: 95% !important;
+    width: 80% !important;
     margin: 0 auto !important;
   }
 
@@ -598,6 +598,33 @@
   align-items: center;
 }
 
+/* Effet de surélévation + glow bleu */
+.citation-card:hover,
+.chanson-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(0, 255, 236, 0.12); /* léger verre bleu */
+  box-shadow: 0 0 18px var(--bluef), 0 0 6px var(--bluef) inset;
+  border: 2px solid var(--bluef);
+}
+
+/* Glow interne animé */
+.citation-card:hover::after,
+.chanson-card:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 0 25px var(--bluef);
+  opacity: 0.2;
+  animation: inspiGlow 1.2s infinite ease-in-out;
+}
+
+@keyframes inspiGlow {
+  0% { opacity: 0.1; }
+  50% { opacity: 0.35; }
+  100% { opacity: 0.1; }
+}
 .brest-map {
   max-width: 100%;
   border-radius: 12px;
@@ -634,4 +661,58 @@
 .slide-in {
   opacity: 1 !important;
   transform: translateX(0) !important;
+}
+
+@media (max-width: 1024px) {
+
+  .inspirations-container {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .inspirations-left,
+  .inspirations-right {
+    width: 100% !important;
+  }
+
+ 
+}
+
+@media (max-width: 640px) {
+
+  .inspirations-container {
+    flex-direction: column;
+    gap: 30px;
+    width: 80%;
+  }
+
+  .inspirations-left {
+    width: 100% !important;
+  }
+
+  .citation-card,
+  .chanson-card {
+    width: 100% !important;
+    padding: 18px 15px !important;
+  }
+
+  .inspirations-right {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+  }
+
+ .earth-wrapper {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        
+        /* Annuler les marges/paddings qui posent problème en mode colonne */
+        padding-top: 0 !important;   /* Annuler le padding-top de 120px */
+        margin-bottom: 0 !important; /* Annuler la marge négative de -60px */
+        margin-top: 20px !important; /* Mettre une petite marge positive pour l'espacement */
+        
+        height: auto !important;     /* Assurer que la hauteur s'adapte à l'image */
+        min-height: 150px !important; /* S'assurer qu'il y a une hauteur minimale visible */
+    }
 }

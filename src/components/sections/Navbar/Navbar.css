@@ -124,6 +124,7 @@
     .nav-menu-mobile {
         display: none;
     }
+    
 }
 
 .nav-logo {
@@ -240,17 +241,46 @@ border-bottom: none !important; /* Désactive l'ancienne bordure */
 }
 
 .nav-link-mobile {
+    position: relative;
     color: var(--blanc);
     text-decoration: none;
     padding: 10px 0;
     display: block;
     text-align: center;
-    border-bottom: 1px solid var(--green);
+    border-bottom: none; /* important : on retire la ligne fixe */
     transition: color 0.3s;
+    font-size: 1.05rem;
+}
+
+.nav-link-mobile::after {
+    content: "";
+    position: absolute;
+    bottom: -3px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 2px;
+    background-color: var(--vertEco);
+    transition: width 0.35s ease;
 }
 
 .nav-link-mobile:hover {
     color: var(--vertEco);
+}
+
+.nav-link-mobile:hover::after {
+    width: 20%; /* Animation d’expansion centrée */
+}
+
+/* Lien actif = couleur + ligne animée restée visible */
+.nav-link-mobile.active {
+    color: var(--vertEco);
+    font-weight: bold;
+}
+
+.nav-link-mobile.active::after {
+    width: 10%;
+    background-color: var(--vertEco);
 }
 
 /*************nav btn*****/

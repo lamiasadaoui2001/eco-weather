@@ -13,18 +13,18 @@ export default function Contact() {
     e.preventDefault();
 
     const templateParams = {
-      prenom,
-      nom,
-      message,
+      prenom: prenom,
+      nom: nom,
+      message: message,
       note: rating,
     };
 
     emailjs
       .send(
-        "service_hme4h84",      // 🔥 ton service ID
-        "template_x2rcv0q",     // 🔥 ton template ID
+        "service_hme4h84",    // Service ID
+        "template_x2rcv0q",   // Template ID
         templateParams,
-        "8k-knGBmanofgokMf"     // 🔥 ta clé publique
+        "8k-knGBmanofgokMf"   // Public Key
       )
       .then(() => setSent(true))
       .catch((err) => console.log(err));
@@ -34,8 +34,6 @@ export default function Contact() {
     <div style={styles.page}>
       <StarsBackground />
 
-
-{/* Titre Contact */}
       <h1 style={styles.title}>Contactez-nous</h1>
 
       <form onSubmit={sendEmail} style={styles.card}>
@@ -43,7 +41,6 @@ export default function Contact() {
           <h2 style={styles.success}>Votre message a été envoyé ✔</h2>
         ) : (
           <>
-            {/* Prénom */}
             <label style={styles.label}>Prénom :</label>
             <input
               type="text"
@@ -53,7 +50,6 @@ export default function Contact() {
               required
             />
 
-            {/* Nom */}
             <label style={styles.label}>Nom :</label>
             <input
               type="text"
@@ -63,7 +59,6 @@ export default function Contact() {
               required
             />
 
-            {/* Message */}
             <label style={styles.label}>Message :</label>
             <textarea
               rows="5"
@@ -73,7 +68,6 @@ export default function Contact() {
               required
             />
 
-            {/* Note */}
             <label style={styles.label}>Notez la page :</label>
             <StarRating value={rating} onChange={setRating} />
 
@@ -87,7 +81,7 @@ export default function Contact() {
   );
 }
 
-/* --------------------- ÉTOILES ---------------------- */
+/* ---------------- ÉTOILES ---------------- */
 function StarRating({ value, onChange }) {
   return (
     <div style={styles.starsContainer}>
@@ -107,17 +101,16 @@ function StarRating({ value, onChange }) {
   );
 }
 
-/* ---------------------- STYLES ----------------------- */
+/* ---------------- STYLES ---------------- */
 const styles = {
-page: {
-  minHeight: "100vh",
-  backgroundColor: "var(--blue)",
-  color: "var(--text)",
-  padding: "30px",
-  paddingTop: "200px", // <-- ajouter cet espace
-  position: "relative",
-},
-
+  page: {
+    minHeight: "100vh",
+    backgroundColor: "var(--blue)",
+    color: "var(--text)",
+    padding: "30px",
+    paddingTop: "200px",
+    position: "relative",
+  },
 
   title: {
     textAlign: "center",
@@ -128,19 +121,18 @@ page: {
     fontWeight: "bold",
   },
 
-card: {
-  width: "60%",
-  margin: "0 auto",
-  padding: "40px",
-  borderRadius: "20px",
-  backgroundColor: "rgba(0, 0, 0, 0.3)",
-  border: "2px solid var(--vertEcoFonce)",
-  boxShadow: "0 0 25px rgba(76, 175, 80, 0.3)",
-  backdropFilter: "blur(4px)",
-  position: "relative", 
-  zIndex: 1, // <-- pour être au-dessus
-},
-
+  card: {
+    width: "60%",
+    margin: "0 auto",
+    padding: "40px",
+    borderRadius: "20px",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    border: "2px solid var(--vertEcoFonce)",
+    boxShadow: "0 0 25px rgba(76, 175, 80, 0.3)",
+    backdropFilter: "blur(4px)",
+    position: "relative",
+    zIndex: 1,
+  },
 
   label: {
     display: "block",

@@ -6,7 +6,7 @@ import Navbar from "./components/sections/Navbar/Navbar";
 import Home from "./components/sections/Home";
 import Conseils from "./components/sections/Conseils";
 import Contact from "./components/sections/Contact"; // 👈 AJOUT
-
+import Dashboard from "./components/sections/Dashboard";
 function App() {
   return (
     <Router>
@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/advice" element={<Conseils />} />
-          <Route path="/dash" element={<div>Dashboard</div>} />
+          <Route path="/dash" element={<Dashboard/>} />
 
           {/* 👇 TA NOUVELLE ROUTE */}
           <Route path="/contact" element={<Contact/>} />

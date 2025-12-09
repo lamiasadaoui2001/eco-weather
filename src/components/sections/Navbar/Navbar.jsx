@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NavbarBtn from './NavbarBtn';
 import NavbarLogo from './NavbarLogo';
-import NavbarLinks from './Navbarlinks';
+import NavbarLinks from './NavbarLinks';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai"; 
 import './Navbar.css';

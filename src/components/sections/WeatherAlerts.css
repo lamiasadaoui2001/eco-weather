@@ -1,0 +1,87 @@
+/* src/components/sections/WeatherAlerts.css */
+.weather-alerts-container {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--blue);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.weather-alerts-container h4 {
+  color: var(--yellow);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.alert-item {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 4px solid var(--green);
+  transition: transform 0.2s;
+}
+
+.alert-item:hover {
+  transform: translateX(2px);
+}
+
+.alert-item.alert-warning {
+  border-left-color: var(--yellow);
+}
+
+.alert-item.alert-danger {
+  border-left-color: var(--red); /* ✅ Utilise la variable */
+}
+
+.alert-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--yellow);
+}
+
+.alert-item.alert-warning .alert-icon svg {
+  color: var(--yellow);
+}
+
+.alert-item.alert-danger .alert-icon svg {
+  color: var(--red); /* ✅ Utilise la variable */
+}
+
+.alert-content h5 {
+  margin: 0 0 0.3rem 0;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.alert-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+.weather-alerts-container h4 svg {
+  color: var(--bluef);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+.weather-alerts-container h4 {
+  color: var(--bluef); /* #00ffec */
+}

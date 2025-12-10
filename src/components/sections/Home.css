@@ -38,7 +38,7 @@
     bottom: -15vh;        /* pousse la Terre vers le bas */
     left: 50%;
     transform: translateX(-50%);
-    width: 150vw;         /* plus large → moins de remontée visuelle */
+    width: 110vw;         /* plus large → moins de remontée visuelle */
     height: 55vh;   
     z-index: 5;
     pointer-events: none;

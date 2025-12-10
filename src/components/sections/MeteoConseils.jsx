@@ -3,6 +3,7 @@ import "./Conseils.css";
 import { WiDaySunny, WiDayCloudy, WiRain, WiSnow, WiThunderstorm } from "react-icons/wi";
 import Generateconseils from "./Conseils/Generateconseils";
 import ListesConseils from "./ListesConseils"; // Ajuste le chemin
+import EarthLoader from "../sections/EarthLoader"; // ajuste le chemin !
 
 // Vidéos
 const SUNNY_VIDEO_URL = "/2569168-hd_1920_1080_24fps.mp4";
@@ -195,14 +196,9 @@ const MeteoConseils = ({ setMeteoActuelle }) => {
   // Retours conditionnels
   if (error) return <div>Erreur météo: {error}</div>;
   if (!weatherData.length) {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-        {Array.from({ length: 20 }).map((_, i) => (
-          <div key={i}>Chargement...</div>
-        ))}
-      </div>
-    );
-  }
+  return <EarthLoader />;
+}
+
 
   const conseilsDuJour = Generateconseils({
     condition: selectedDayData.description,

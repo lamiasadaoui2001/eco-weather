@@ -43,7 +43,9 @@ const getDailySong = (condition) => {
 };
 
 const Inspirations = ({ meteo }) => {
+  
   const condition = meteo?.condition || "Autre";
+  
   const dailyQuote = getDailyQuote(condition);
   const dailySong = getDailySong(condition);
 

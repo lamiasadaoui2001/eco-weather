@@ -1,6 +1,7 @@
 // src/components/sections/Dashboard.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import "./Dashboard.css";
+import 'leaflet/dist/leaflet.css'; 
 import { FaRegSnowflake } from "react-icons/fa";
 import EarthLoader from "./EarthLoader";
 import { IoThunderstormOutline } from "react-icons/io5";
@@ -12,6 +13,8 @@ import useWeatherAudio from '../../utils/useWeatherAudio';
 import Navbar from "./Navbar/Navbar";
 import Footer from "./Footer"
 import { BsCloudHaze2 } from "react-icons/bs";
+import StarsBackground from "./StarsBackground";
+
 import {
   LineChart,
   Line,
@@ -230,6 +233,9 @@ const Dashboard = () => {
     <div className="app-container">
             <Navbar/>
     <div className="dashboard-wrapper">
+    
+    <StarsBackground /> {/* Étoiles en arrière-plan */}
+          
     <div className={`dashboard ${theme} animate-fade-in`}>
       <header className="dashboard-header animate-slide-down">
         <div className="location">
@@ -277,6 +283,9 @@ const Dashboard = () => {
       </header>
 
       <div className="dashboard-grid animate-slide-up">
+      
+    <StarsBackground /> {/* Étoiles en arrière-plan */}
+          
         <div className={`main-weather-left ${getTempClass(weatherData.main.temp)} ${getWeatherClass(weatherData.weather[0].main)}`}>
           {currentBackground && (
             <div className="background-overlay">

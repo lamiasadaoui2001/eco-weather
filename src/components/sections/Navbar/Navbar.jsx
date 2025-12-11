@@ -10,23 +10,18 @@ const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const toggleMenu = () => {
-        const newState = !menuOpen;
-        setMenuOpen(newState);
-
-        const overlay = document.querySelector(".nav-overlay");
-        if (overlay) {
-            if (newState) {
-                overlay.classList.add("is-visible");
-            } else {
-                overlay.classList.remove("is-visible");
-            }
-        }
+        setMenuOpen(prev => !prev);
     };
+
+    const closeMenu = () => setMenuOpen(false);
 
     return (
         <>
             {/* OVERLAY FLOU */}
-            <div className="nav-overlay"></div>
+            <div
+                className={`nav-overlay ${menuOpen ? "is-visible" : ""}`}
+                onClick={closeMenu}
+            ></div>
 
             <nav className="nav-container">
                 
@@ -51,7 +46,7 @@ const Navbar = () => {
 
                 {/* Menu mobile */}
                 <div className={`nav-menu-mobile ${menuOpen ? 'is-open' : ''}`}>
-                    <NavbarLinks isMobile={true} />
+                    <NavbarLinks isMobile={true} closeMenu={closeMenu} />
                 </div>
             </nav>
         </>

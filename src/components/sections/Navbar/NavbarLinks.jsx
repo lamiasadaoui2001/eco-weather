@@ -8,7 +8,7 @@ const links = [
   { name: "Conseils écologiques", href: "/advice" },
 ];
 
-const NavbarLinks = ({ isMobile = false }) => {
+const NavbarLinks = ({ isMobile = false, closeMenu }) => {
   const listClass = isMobile
     ? "nav-links-list-mobile"
     : "nav-links-list-desktop";
@@ -24,6 +24,7 @@ const NavbarLinks = ({ isMobile = false }) => {
             className={({ isActive }) =>
               isActive ? `${linkClass} active` : linkClass
             }
+            onClick={isMobile ? closeMenu : undefined} // ferme le menu mobile
           >
             {link.name}
           </NavLink>

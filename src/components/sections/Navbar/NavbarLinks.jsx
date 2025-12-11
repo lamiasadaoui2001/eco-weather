@@ -24,7 +24,7 @@ const NavbarLinks = ({ isMobile = false, closeMenu }) => {
             className={({ isActive }) =>
               isActive ? `${linkClass} active` : linkClass
             }
-            onClick={isMobile ? closeMenu : undefined} // ferme le menu mobile
+            onClick={isMobile && closeMenu ? closeMenu : undefined} // <-- correction
           >
             {link.name}
           </NavLink>
